@@ -7,8 +7,8 @@ import { POST as VendorPOST } from '@/app/api/auth/register-vendor/route';
 import { GET as NextAuthGET, POST as NextAuthPOST } from '@/app/api/auth/[...nextauth]/route';
 import { POST as VerifyVendorPOST } from '@/app/api/admin/verify-vendor/route';
 import { GET as MeGET } from '@/app/api/auth/me/route';
-import { createRequest } from '@/tests/utils/test-utils';
-import { prisma } from '@/lib/prisma';
+import { createRequest } from '../../../utils/test-utils';
+import { prisma } from '../../../../src/lib/prisma';
 import bcrypt from 'bcryptjs';
 
 describe('Authentication API Integration Tests', () => {
