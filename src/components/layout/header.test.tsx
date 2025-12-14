@@ -10,7 +10,8 @@ describe('Header', () => {
   it('renders navigation links', () => {
     render(<Header />);
     expect(screen.getByText('Home')).toBeInTheDocument();
-    expect(screen.getByText('About')).toBeInTheDocument();
-    expect(screen.getByText('Contact')).toBeInTheDocument();
+    expect(screen.getByText('Vendor Dashboard')).toBeInTheDocument();
+    expect(screen.getByText('Products')).toBeInTheDocument();
+    expect(screen.getByText('Admin')).toBeInTheDocument();
   });
 });

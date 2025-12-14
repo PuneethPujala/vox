@@ -9,11 +9,41 @@ datasource db {
   provider = "postgresql"
 }
 
-// Sample model - can be extended as needed
 model User {
   id        String   @id @default(cuid())
   email     String   @unique
   name      String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model VendorProfile {
+  id                 String   @id @default(cuid())
+  vendorName         String
+  email              String   @unique
+  contactPerson      String?
+  verificationStatus String   @default("pending")
+  documents          VendorDocument[]
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  @@index([verificationStatus])
+}
+
+model VendorDocument {
+  id              String   @id @default(cuid())
+  vendorId        String
+  vendor          VendorProfile @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  fileName        String
+  fileSize        Int
+  fileType        String
+  filePath        String
+  status          String   @default("pending")
+  reviewerNotes   String?
+  uploadedAt      DateTime @default(now())
+  reviewedAt      DateTime?
+  updatedAt       DateTime @updatedAt
+
+  @@index([vendorId])
+  @@index([status])
 }
