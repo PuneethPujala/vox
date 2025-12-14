@@ -9,7 +9,7 @@ export default async function DashboardPage() {
     redirect('/auth/signin');
   }
 
-  const userRole = (session.user as any).role;
+  const userRole = (session.user as { role: string }).role;
 
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">

@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
     });
 
     // Return user without password
-    const { password: _, ...userWithoutPassword } = user;
+    const { ...userWithoutPassword } = user;
 
     return NextResponse.json(
       { message: 'Customer registered successfully', user: userWithoutPassword },

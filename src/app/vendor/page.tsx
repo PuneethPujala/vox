@@ -10,14 +10,14 @@ export default async function VendorDashboardPage() {
     redirect('/auth/signin');
   }
 
-  const userRole = (session.user as any).role;
+  const userRole = (session.user as { role: string }).role;
 
   if (userRole !== 'VENDOR') {
     redirect('/dashboard');
   }
 
   // Get vendor profile to check verification status
-  const userId = (session.user as any).id;
+  const userId = (session.user as { id: string }).id;
   const vendorProfile = await prisma.vendorProfile.findUnique({
     where: { userId },
   });

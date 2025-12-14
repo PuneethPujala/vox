@@ -10,7 +10,7 @@ export async function GET() {
       return new Response('Unauthorized', { status: 401 });
     }
 
-    const userId = ((session.user as { id: string }).id);
+    const userId = (session.user as { id: string }).id;
 
     const user = await prisma.user.findUnique({
       where: { id: userId },
@@ -24,7 +24,7 @@ export async function GET() {
     }
 
     // Don't return password
-    const { password, ...userWithoutPassword } = user;
+    const { password: _, ...userWithoutPassword } = user;
 
     return Response.json(userWithoutPassword);
   } catch (error) {

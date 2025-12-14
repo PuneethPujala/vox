@@ -45,7 +45,7 @@ export default function SignInPage() {
       // Check session and redirect
       const session = await getSession();
       if (session?.user) {
-        const role = (session.user as any).role;
+        const role = (session.user as { role: string }).role;
         switch (role) {
           case 'ADMIN':
             router.push('/admin');
@@ -59,7 +59,7 @@ export default function SignInPage() {
       } else {
         router.push(callbackUrl);
       }
-    } catch (error) {
+    } catch {
       setError('An unexpected error occurred');
     } finally {
       setIsLoading(false);
