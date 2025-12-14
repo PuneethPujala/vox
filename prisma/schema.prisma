@@ -6,14 +6,53 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
+  url      = "file:./dev.db"
 }
 
-// Sample model - can be extended as needed
+// User model with role-based access
 model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  name      String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id            String      @id @default(cuid())
+  email         String      @unique
+  name          String?
+  password      String      // Hashed password
+  role          String      @default("CUSTOMER") // CUSTOMER, VENDOR, ADMIN
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  
+  // Vendor profile (only for VENDOR role users)
+  vendorProfile VendorProfile?
+  
+  // Session management
+  sessions      Session[]
+  
+  @@map("users")
+}
+
+// Vendor profile with verification status
+model VendorProfile {
+  id                  String   @id @default(cuid())
+  userId              String   @unique
+  user                User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  businessName        String
+  businessDescription String?
+  phoneNumber         String?
+  address             String?
+  verificationStatus  String   @default("PENDING") // PENDING, VERIFIED, REJECTED
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  
+  @@map("vendor_profiles")
+}
+
+// NextAuth session model
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expires      DateTime
+  createdAt    DateTime @default(now())
+  
+  @@map("sessions")
 }
