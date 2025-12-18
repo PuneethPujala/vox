@@ -14,11 +14,14 @@ export function Header() {
           <a href="/" className="text-sm font-medium hover:underline">
             Home
           </a>
-          <a href="/about" className="text-sm font-medium hover:underline">
-            About
+          <a href="/vendor-dashboard" className="text-sm font-medium hover:underline">
+            Vendor Dashboard
           </a>
-          <a href="/contact" className="text-sm font-medium hover:underline">
-            Contact
+          <a href="/product-management" className="text-sm font-medium hover:underline">
+            Products
+          </a>
+          <a href="/admin/vendor-verification" className="text-sm font-medium hover:underline">
+            Admin
           </a>
         </nav>
       </div>
